@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+int largestNum(int a, int b){
+	if(a>b){
+		return a;
+	}
+	else{
+		return b;
+	}
+}
+int knapSack(int W, int wt[], int val[], int n){
+	if (n == 0 || W == 0){
+		return 0;
+	}
+	if (wt[n - 1] > W){
+		return knapSack(W, wt, val, n - 1);
+	}
+	else{
+		return largestNum(val[n - 1] + knapSack(W - wt[n - 1], wt, val, n - 1), knapSack(W, wt, val, n - 1));
+	}
+}
+int main(){
+	int profit[] = {2, 3, 1, 4};
+	int weight[] = {4, 5, 3, 7};
+	int W = 5;
+	int n = sizeof(profit) / sizeof(profit[0]);
+	cout << knapSack(W, weight, profit, n);
+	return 0;
+}
+
